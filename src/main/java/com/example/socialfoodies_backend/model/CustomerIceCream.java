@@ -20,4 +20,8 @@ public class CustomerIceCream {
     @ManyToOne
     @JoinColumn(name = "customerID")
     private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "pollID")
+    private Poll poll;
 }

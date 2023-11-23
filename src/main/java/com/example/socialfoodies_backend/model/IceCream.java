@@ -17,4 +17,9 @@ public class IceCream {
     private boolean vegan;
     private boolean nuts;
 
+    @ManyToOne
+    @JoinColumn(name = "pollID")
+    private Poll poll;
+
+
 }
