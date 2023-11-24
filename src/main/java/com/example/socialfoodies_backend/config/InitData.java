@@ -1,8 +1,10 @@
 package com.example.socialfoodies_backend.config;
 
+import com.example.socialfoodies_backend.model.Customer;
 import com.example.socialfoodies_backend.model.CustomerIceCream;
 import com.example.socialfoodies_backend.model.IceCream;
 import com.example.socialfoodies_backend.repository.CustomerIceCreamRepository;
+import com.example.socialfoodies_backend.repository.CustomerRepository;
 import com.example.socialfoodies_backend.repository.IceCreamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +21,9 @@ public class InitData implements CommandLineRunner {
 
     @Autowired
     CustomerIceCreamRepository customerIceCreamRepository;
+
+    @Autowired
+    CustomerRepository customerRepository;
 
 
     @Override
@@ -41,5 +46,9 @@ public class InitData implements CommandLineRunner {
         customerIceCream.setVegan(true);
         customerIceCreamRepository.save(customerIceCream);
 
+        //Customer
+        Customer customer = new Customer();
+        customer.setEmail("Kjartan.leander@hotmail.com");
+        customerRepository.save(customer);
     }
 }
