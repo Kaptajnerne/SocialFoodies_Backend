@@ -1,6 +1,8 @@
 package com.example.socialfoodies_backend.controller;
 
+import com.example.socialfoodies_backend.model.CustomerIceCream;
 import com.example.socialfoodies_backend.model.IceCream;
+import com.example.socialfoodies_backend.repository.CustomerIceCreamRepository;
 import com.example.socialfoodies_backend.repository.IceCreamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,5 +38,4 @@ public class IceCreamController {
         IceCream createdIceCream = iceCreamRepository.save(iceCream);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdIceCream);
     }
-
 }
