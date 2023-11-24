@@ -1,12 +1,8 @@
 package com.example.socialfoodies_backend.config;
 
-import com.example.socialfoodies_backend.model.Admin;
-import com.example.socialfoodies_backend.model.Customer;
 import com.example.socialfoodies_backend.model.CustomerIceCream;
 import com.example.socialfoodies_backend.model.IceCream;
-import com.example.socialfoodies_backend.repository.AdminRepository;
 import com.example.socialfoodies_backend.repository.CustomerIceCreamRepository;
-import com.example.socialfoodies_backend.repository.CustomerRepository;
 import com.example.socialfoodies_backend.repository.IceCreamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -29,6 +25,9 @@ public class InitData implements CommandLineRunner {
 
     @Autowired
     AdminRepository adminRepository;
+    @Autowired
+    PollRepository pollRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
@@ -60,6 +59,12 @@ public class InitData implements CommandLineRunner {
         admin.setEmail("Simon.Bang@hotmail.com");
         admin.setPassword("Simon25");
         adminRepository.save(admin);
+
+        //Poll
+        Poll poll = new Poll();
+        poll.setStartDate(LocalDate.now());
+        poll.setEndDate(LocalDate.now().plusDays(30));
+        poll.setIceCreamOption1(1);
 
     }
 }
