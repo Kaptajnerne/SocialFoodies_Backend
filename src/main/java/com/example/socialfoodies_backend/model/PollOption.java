@@ -23,6 +23,5 @@ public class PollOption {
     @JoinColumn(name = "pollID")
     private Poll poll;
 
-    //Property to count the amount of votes an option gets
-    //Will most likely need business logic to do this (Method in service class)
+    private int totalVotes;
 }

@@ -29,11 +29,13 @@ public class PollController {
         return ResponseEntity.ok().body(polls);
     }
 
+    /*
     @GetMapping("/{id}")
     public ResponseEntity<Poll> findById(@PathVariable int id) {
         Optional<Poll> poll = pollRepository.findById(id);
         return poll.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
+    */
 
     @PostMapping()
     public ResponseEntity<Poll> create(@RequestBody Poll poll) {

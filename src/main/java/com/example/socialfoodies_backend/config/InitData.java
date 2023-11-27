@@ -98,27 +98,30 @@ public class InitData implements CommandLineRunner {
         }
 
         //Poll
-        Poll poll = new Poll();
-        poll.setStartDate(LocalDate.now());
-        poll.setEndDate(LocalDate.now().plusDays(30));
-        poll.setPollOptions(pollService.selectPollOptions(1,3,5));
-        pollRepository.save(poll);
+        int[] pollOptionIds = {1, 3, 5};
+        Poll poll = pollService.createAndSetupPoll(LocalDate.now(), LocalDate.now().plusDays(30), pollOptionIds);
 
-        if (poll != null) {
-            for (PollOption selectedPollOptions : poll.getPollOptions()) {
-                selectedPollOptions.setPoll(poll);
-                pollOptionsRepository.save(selectedPollOptions);
-            }
-        }
-
+        //USED WHEN SYSTEM IS SET TO: spring.jpa.hibernate.ddl-auto=create-drop
         //Vote
         Vote vote1 = voteService.castVote(1, customer.getEmail());
-        voteRepository.save(vote1);
-
-        Vote vote2 = voteService.castVote(3, "kjartan@gmail.com");
-        voteRepository.save(vote2);
-
+        Vote vote2 = voteService.castVote(1, "kjartan@gmail.com");
         Vote vote3 = voteService.castVote(5, "Diego@gmail.com");
-        voteRepository.save(vote3);
+
+        List<PollOption> updatedOptions = new ArrayList<>();
+        for (PollOption option : poll.getPollOptions()) {
+            int pollOptionID = option.getPollOptionID();
+            int totalVotes = voteService.getTotalVotesByPollOptionID(pollOptionID);
+            option.setTotalVotes(totalVotes);
+            updatedOptions.add(option);
+        }
+        pollOptionsRepository.saveAll(updatedOptions);
+
+        /*
+        //USED WHEN IT'S SET TO: spring.jpa.hibernate.ddl-auto=update
+        //Votes
+        voteService.castVoteAndUpdateCounts(1, customer.getEmail());
+        voteService.castVoteAndUpdateCounts(1, "kjartan@gmail.com");
+        voteService.castVoteAndUpdateCounts(5, "Diego@gmail.com");
+        */
     }
 }
