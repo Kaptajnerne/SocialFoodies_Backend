@@ -1,11 +1,11 @@
 package com.example.socialfoodies_backend.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @Entity
 public class CustomerIceCream {
 
@@ -20,8 +20,4 @@ public class CustomerIceCream {
     @ManyToOne
     @JoinColumn(name = "customerID")
     private Customer customer;
-
-    @ManyToOne
-    @JoinColumn(name = "pollID")
-    private Poll poll;
 }

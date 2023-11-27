@@ -1,11 +1,11 @@
 package com.example.socialfoodies_backend.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @Entity
 public class IceCream {
 
@@ -16,10 +16,4 @@ public class IceCream {
     private String description;
     private boolean vegan;
     private boolean nuts;
-
-    @ManyToOne
-    @JoinColumn(name = "pollID")
-    private Poll poll;
-
-
 }

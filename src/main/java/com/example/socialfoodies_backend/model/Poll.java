@@ -1,17 +1,15 @@
 package com.example.socialfoodies_backend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @Entity
 public class Poll {
 
@@ -20,15 +18,7 @@ public class Poll {
     private int pollID;
     private LocalDate startDate;
     private LocalDate endDate;
-    private int iceCreamOption1;
-    private int iceCreamOption2;
-    private int iceCreamOption3;
 
     @OneToMany(mappedBy = "poll")
-    @JsonIgnore
-    private Set<IceCream> iceCreams = new HashSet<>();
-
-    @OneToMany(mappedBy = "poll")
-    @JsonIgnore
-    private Set<CustomerIceCream> customerIceCreams = new HashSet<>();
+    private Set<PollOption> pollOptions = new HashSet<>();
 }
