@@ -2,6 +2,7 @@ package com.example.socialfoodies_backend.config;
 
 import com.example.socialfoodies_backend.model.*;
 import com.example.socialfoodies_backend.repository.*;
+import com.example.socialfoodies_backend.service.PollOptionService;
 import com.example.socialfoodies_backend.service.PollService;
 import com.example.socialfoodies_backend.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,9 @@ public class InitData implements CommandLineRunner {
 
     @Autowired
     VoteService voteService;
+
+    @Autowired
+    PollOptionService pollOptionService;
 
 
     @Override
@@ -85,17 +89,9 @@ public class InitData implements CommandLineRunner {
         }
 
         // Poll options
-        for (IceCream iceCream : iceCreams) {
-            PollOption iceCreamOption = new PollOption();
-            iceCreamOption.setIceCream(iceCream);
-            pollOptionsRepository.save(iceCreamOption);
-        }
+        pollOptionService.createPollOptionsForIceCreams(iceCreams);
+        pollOptionService.createPollOptionsForCustomerIceCreams(customerIceCreams);
 
-        for (CustomerIceCream cIceCream : customerIceCreams) {
-            PollOption customerIceCreamOption = new PollOption();
-            customerIceCreamOption.setCustomerIceCream(cIceCream);
-            pollOptionsRepository.save(customerIceCreamOption);
-        }
 
         //Poll
         int[] pollOptionIds = {1, 3, 5};
@@ -116,12 +112,12 @@ public class InitData implements CommandLineRunner {
         }
         pollOptionsRepository.saveAll(updatedOptions);
 
-        /*
+/*
         //USED WHEN IT'S SET TO: spring.jpa.hibernate.ddl-auto=update
         //Votes
         voteService.castVoteAndUpdateCounts(1, customer.getEmail());
         voteService.castVoteAndUpdateCounts(1, "kjartan@gmail.com");
         voteService.castVoteAndUpdateCounts(5, "Diego@gmail.com");
-        */
+*/
     }
 }

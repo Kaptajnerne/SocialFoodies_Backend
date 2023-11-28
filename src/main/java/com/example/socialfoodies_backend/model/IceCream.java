@@ -5,7 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @Entity
 public class IceCream {
 

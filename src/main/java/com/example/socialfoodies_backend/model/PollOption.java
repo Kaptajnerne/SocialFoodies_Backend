@@ -2,8 +2,11 @@ package com.example.socialfoodies_backend.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @Entity
 public class PollOption {
 
