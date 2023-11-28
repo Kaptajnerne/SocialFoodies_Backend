@@ -60,15 +60,59 @@ public class InitData implements CommandLineRunner {
 
         //Ice cream
         List<IceCream> iceCreams = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            IceCream iceCream = new IceCream();
-            iceCream.setName("Ice Cream " + i);
-            iceCream.setDescription("Description " + i);
-            iceCream.setNuts(true);
-            iceCream.setVegan(false);
-            iceCreamRepository.save(iceCream);
-            iceCreams.add(iceCream);
-        }
+        IceCream iceCream1 = new IceCream();
+        iceCream1.setName("Vanille");
+        iceCream1.setDescription("Smager af vanillie");
+        iceCream1.setNuts(true);
+        iceCream1.setVegan(false);
+        iceCream1.setMovieImageUrl("https://kastbergs.dk/wp-content/uploads/ny_vanilje_ccexpress.png");
+        iceCreamRepository.save(iceCream1);
+        iceCreams.add(iceCream1);
+
+        IceCream iceCream2 = new IceCream();
+        iceCream2.setName("Chokolade");
+        iceCream2.setDescription("Smager af chokolade");
+        iceCream2.setNuts(true);
+        iceCream2.setVegan(false);
+        iceCream2.setMovieImageUrl("https://paradis-is.dk/wp-content/uploads/2018/07/chokolade-is-kugle.png");
+        iceCreamRepository.save(iceCream2);
+        iceCreams.add(iceCream2);
+
+        IceCream iceCream3 = new IceCream();
+        iceCream3.setName("Mango");
+        iceCream3.setDescription("Smager af mango");
+        iceCream3.setNuts(true);
+        iceCream3.setVegan(false);
+        iceCream3.setMovieImageUrl("https://kastbergs.dk/wp-content/uploads/kastbergs_mango_sorbet_optimized-1_ccexpress-1.png");
+        iceCreamRepository.save(iceCream3);
+        iceCreams.add(iceCream3);
+
+        IceCream iceCream4 = new IceCream();
+        iceCream4.setName("Jordbær");
+        iceCream4.setDescription("Smager af jordbær");
+        iceCream4.setNuts(true);
+        iceCream4.setVegan(false);
+        iceCream4.setMovieImageUrl("https://paradis-is.dk/wp-content/uploads/2018/07/jordbaer-champagne-is-kugle-300x230.png");
+        iceCreamRepository.save(iceCream4);
+        iceCreams.add(iceCream4);
+
+        IceCream iceCream5 = new IceCream();
+        iceCream5.setName("Ananas");
+        iceCream5.setDescription("Smager af ananas");
+        iceCream5.setNuts(true);
+        iceCream5.setVegan(false);
+        iceCream5.setMovieImageUrl("https://robertsisbar.dk/wp-content/uploads/2017/07/ananas.png");
+        iceCreamRepository.save(iceCream5);
+        iceCreams.add(iceCream5);
+
+        IceCream iceCream6 = new IceCream();
+        iceCream6.setName("Banan");
+        iceCream6.setDescription("Smager af banan");
+        iceCream6.setNuts(true);
+        iceCream6.setVegan(false);
+        iceCream6.setMovieImageUrl("https://robertsisbar.dk/wp-content/uploads/2017/07/banan.png");
+        iceCreamRepository.save(iceCream6);
+        iceCreams.add(iceCream6);
 
         //Customer ice creams
         List<CustomerIceCream> customerIceCreams = new ArrayList<>();
