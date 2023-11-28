@@ -15,19 +15,17 @@ public class PollOptionService {
     @Autowired
     private PollOptionsRepository pollOptionsRepository;
 
-    public void createPollOptionsForIceCreams(List<IceCream> iceCreams) {
+    public void createPollOptions(List<IceCream> iceCreams, List<CustomerIceCream> customerIceCreams) {
         for (IceCream iceCream : iceCreams) {
-            PollOption option = new PollOption();
-            option.setIceCream(iceCream);
-            pollOptionsRepository.save(option);
+            PollOption iceCreamOption = new PollOption();
+            iceCreamOption.setIceCream(iceCream);
+            pollOptionsRepository.save(iceCreamOption);
         }
-    }
 
-    public void createPollOptionsForCustomerIceCreams(List<CustomerIceCream> customerIceCreams) {
         for (CustomerIceCream customerIceCream : customerIceCreams) {
-            PollOption option = new PollOption();
-            option.setCustomerIceCream(customerIceCream);
-            pollOptionsRepository.save(option);
+            PollOption customerIceCreamOption = new PollOption();
+            customerIceCreamOption.setCustomerIceCream(customerIceCream);
+            pollOptionsRepository.save(customerIceCreamOption);
         }
     }
 

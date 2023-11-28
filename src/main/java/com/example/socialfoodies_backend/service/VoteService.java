@@ -1,5 +1,6 @@
 package com.example.socialfoodies_backend.service;
 
+import com.example.socialfoodies_backend.dto.VoteData;
 import com.example.socialfoodies_backend.model.Customer;
 import com.example.socialfoodies_backend.model.Poll;
 import com.example.socialfoodies_backend.model.PollOption;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -31,10 +33,10 @@ public class VoteService {
     @Autowired
     CustomerRepository customerRepository;
 
-    public Vote castVote(int pollOptionID, String email) {
+    public void castVote(int pollOptionID, String email) {
         Vote createdVote = new Vote();
 
-        //Get the customer
+        //Get the customer or else create new customer
         Customer customer = customerRepository.findByEmail(email).orElseGet(() -> {
             Customer newCustomer = new Customer();
             newCustomer.setEmail(email);
@@ -50,15 +52,19 @@ public class VoteService {
         createdVote.setSelectedOption(pollOption);
         voteRepository.save(createdVote);
 
-        return createdVote;
     }
 
     public int getTotalVotesByPollOptionID(int pollOptionID) {
         return voteRepository.countBySelectedOptionPollOptionID(pollOptionID);
     }
 
+    @Transactional
+    public void castVotesAndUpdatePollOptions(Poll poll, List<VoteData> votesDataList) {
+        for (VoteData voteData : votesDataList) {
+            castVote(voteData.getPollOptionId(), voteData.getEmail());
+        }
 
-    public void updateVoteCounts(Poll poll) {
+        //Sets and updates the votes
         List<PollOption> updatedOptions = new ArrayList<>();
         for (PollOption option : poll.getPollOptions()) {
             int totalVotes = getTotalVotesByPollOptionID(option.getPollOptionID());
@@ -67,13 +73,4 @@ public class VoteService {
         }
         pollOptionsRepository.saveAll(updatedOptions);
     }
-
-    @Transactional
-    public void castVoteAndUpdateCounts(int pollOptionID, String email) {
-        Vote vote = castVote(pollOptionID, email);
-
-        Poll refreshedPoll = pollRepository.findById(vote.getSelectedOption().getPoll().getPollID()).orElseThrow(() -> new RuntimeException("Poll not found"));
-        updateVoteCounts(refreshedPoll);
-    }
-
 }
