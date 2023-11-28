@@ -1,9 +1,7 @@
 package com.example.socialfoodies_backend.config;
 
-import com.example.socialfoodies_backend.model.CustomerIceCream;
-import com.example.socialfoodies_backend.model.IceCream;
-import com.example.socialfoodies_backend.repository.CustomerIceCreamRepository;
-import com.example.socialfoodies_backend.repository.IceCreamRepository;
+import com.example.socialfoodies_backend.model.*;
+import com.example.socialfoodies_backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
