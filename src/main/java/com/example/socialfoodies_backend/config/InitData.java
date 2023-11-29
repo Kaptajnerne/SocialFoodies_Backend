@@ -61,8 +61,8 @@ public class InitData implements CommandLineRunner {
         //Ice cream
         List<IceCream> iceCreams = new ArrayList<>();
         IceCream iceCream1 = new IceCream();
-        iceCream1.setName("Vanille");
-        iceCream1.setDescription("Smager af vanillie");
+        iceCream1.setName("Vanillje");
+        iceCream1.setDescription("Smager af vanilljie");
         iceCream1.setNuts(true);
         iceCream1.setVegan(false);
         iceCream1.setMovieImageUrl("https://kastbergs.dk/wp-content/uploads/ny_vanilje_ccexpress.png");
