@@ -1,64 +1,66 @@
 # Entity Relationship Diagram
 
-![image](https://github.com/Kaptajnerne/SocialFoodies_Backend/assets/113116068/3f505fa5-eb1d-46f4-8e2e-d61b3ff32ba0)
+<img width="1192" alt="Screenshot 2023-11-30 at 15 14 16" src="https://github.com/Kaptajnerne/SocialFoodies_Backend/assets/113175889/8351f9ab-3ef1-40e1-9854-2fd1aa4def23">
+
 
 ### Written in dbdiagram.io
 
 ```
 Table IceCream {
-  id int [pk]
+  iceCreamID int [pk]
   name varchar
   description varchar
   vegan boolean
   nuts boolean
+  imageUrl varchar
 }
 
 Table CustomerIceCream {
-  id int [pk]
+  customerIceCreamID int [pk]
   name varchar
   description varchar
   vegan boolean
   nuts boolean
+  imageUrl varchar
   customerID int
-  status varchar //accepted, rejected, pending
 }
 
 Table Customer {
-  id int [pk]
+  customerID int [pk]
   email varchar
 }
 
-Table Administrator {
-  id int [pk]
-  username varchar
-  password varchar
+Table Admin {
+  adminID int [pk]
   email varchar
+  password varchar
 }
 
 Table Poll {
-  id int [pk]
-  startDate date
-  endDate date
-  status varchar
-  iceCreamOption1 int
-  iceCreamOption2 int 
-  iceCreamOption3 int 
+  pollID int [pk]
+  startDate LocalDate
+  endDate LocalDate
 }
 
 Table Vote {
-  id int [pk]
+  voteID int [pk]
   customerID int
   pollID int
-  votedOption int
+  pollOptionID int
 }
 
-ref: Customer.id < Vote.customerID
-ref: Poll.id < Vote.pollID
-ref: IceCream.id < Poll.iceCreamOption1
-ref: IceCream.id < Poll.iceCreamOption2
-ref: IceCream.id < Poll.iceCreamOption3
-ref: CustomerIceCream.id < Poll.iceCreamOption1
-ref: CustomerIceCream.id < Poll.iceCreamOption2
-ref: CustomerIceCream.id < Poll.iceCreamOption3
-ref: Customer.id < CustomerIceCream.customerID
-```
+Table PollOption {
+  pollOptionID int [pk]
+  iceCreamID int
+  customerIceCreamID int
+  pollID int
+  totalVotes int
+}
+
+ref: Customer.customerID < CustomerIceCream.customerID
+ref: IceCream.iceCreamID < PollOption.iceCreamID
+ref: CustomerIceCream.customerIceCreamID < PollOption.customerIceCreamID
+ref: Poll.pollID < PollOption.pollID
+ref: Customer.customerID < Vote.customerID
+ref: Poll.pollID < Vote.pollID
+ref: PollOption.pollOptionID < Vote.pollOptionID
