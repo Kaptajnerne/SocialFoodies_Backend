@@ -52,6 +52,12 @@ public class InitData implements CommandLineRunner {
         admin.setPassword("Simon25");
         adminRepository.save(admin);
 
+        //Admins
+        Admin test = new Admin();
+        admin.setEmail("x");
+        admin.setPassword("x");
+        adminRepository.save(admin);
+
         //Ice cream
         List<IceCream> iceCreams = new ArrayList<>();
         IceCream iceCream1 = new IceCream();
