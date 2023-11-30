@@ -23,22 +23,16 @@ public class InitData implements CommandLineRunner {
     private final CustomerIceCreamRepository customerIceCreamRepository;
     private final CustomerRepository customerRepository;
     private final AdminRepository adminRepository;
-    private final PollRepository pollRepository;
-    private final PollOptionsRepository pollOptionsRepository;
     private final PollService pollService;
-    private final VoteRepository voteRepository;
     private final VoteService voteService;
     private final PollOptionService pollOptionService;
 
-    public InitData(IceCreamRepository iceCreamRepository, CustomerIceCreamRepository customerIceCreamRepository, CustomerRepository customerRepository, AdminRepository adminRepository, PollRepository pollRepository, PollOptionsRepository pollOptionsRepository, PollService pollService, VoteRepository voteRepository, VoteService voteService, PollOptionService pollOptionService) {
+    public InitData(IceCreamRepository iceCreamRepository, CustomerIceCreamRepository customerIceCreamRepository, CustomerRepository customerRepository, AdminRepository adminRepository, PollService pollService, VoteService voteService, PollOptionService pollOptionService) {
         this.iceCreamRepository = iceCreamRepository;
         this.customerIceCreamRepository = customerIceCreamRepository;
         this.customerRepository = customerRepository;
         this.adminRepository = adminRepository;
-        this.pollRepository = pollRepository;
-        this.pollOptionsRepository = pollOptionsRepository;
         this.pollService = pollService;
-        this.voteRepository = voteRepository;
         this.voteService = voteService;
         this.pollOptionService = pollOptionService;
     }
@@ -66,6 +60,7 @@ public class InitData implements CommandLineRunner {
             iceCream.setDescription("Description " + i);
             iceCream.setNuts(true);
             iceCream.setVegan(false);
+            iceCream.setImageUrl("https://assets-global.website-files.com/610ad3ad234b4037b59c37dd/64ed1da028df7105ee810e07_Rocky%20Road%20Strawberry%2016L%20Scoop.png");
             iceCreamRepository.save(iceCream);
             iceCreams.add(iceCream);
         }
@@ -79,6 +74,7 @@ public class InitData implements CommandLineRunner {
             cIceCream.setNuts(false);
             cIceCream.setVegan(true);
             cIceCream.setCustomer(customer);
+            cIceCream.setImageUrl("https://assets-global.website-files.com/610ad3ad234b4037b59c37dd/6168de16495ee0dd4d5dec0c_DFVANILLA_SCOOPSIMAGE_1200x800%20(1).png");
             customerIceCreamRepository.save(cIceCream);
             customerIceCreams.add(cIceCream);
         }
@@ -91,10 +87,13 @@ public class InitData implements CommandLineRunner {
         Poll poll = pollService.createAndSetupPoll(LocalDate.now(), LocalDate.now().plusDays(30), pollOptionIds);
 
         //Vote
-        List<VoteData> votesDataList = new ArrayList<>();
-        votesDataList.add(new VoteData(1, customer.getEmail()));
-        votesDataList.add(new VoteData(1, "kjartan@gmail.com"));
-        votesDataList.add(new VoteData(5, "Diego@gmail.com"));
-        voteService.castVotesAndUpdatePollOptions(poll, votesDataList);
+        VoteData voteData1 = new VoteData(1, customer.getEmail());
+        voteService.castVotesAndUpdatePollOptions(poll, voteData1);
+
+        VoteData voteData2 = new VoteData(1, "kjartan@gmail.com");
+        voteService.castVotesAndUpdatePollOptions(poll, voteData2);
+
+        VoteData voteData3 = new VoteData(5, "Diego@gmail.com");
+        voteService.castVotesAndUpdatePollOptions(poll, voteData3);
     }
 }

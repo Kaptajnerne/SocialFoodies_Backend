@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface PollRepository extends JpaRepository<Poll, Integer> {
-    Optional<Poll> findById(int pollId);
+    Poll findById(int pollId);
 }
 

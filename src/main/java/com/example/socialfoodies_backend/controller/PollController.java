@@ -1,11 +1,12 @@
 package com.example.socialfoodies_backend.controller;
 
-import com.example.socialfoodies_backend.model.CustomerIceCream;
-import com.example.socialfoodies_backend.model.IceCream;
-import com.example.socialfoodies_backend.model.Poll;
+import com.example.socialfoodies_backend.dto.VoteData;
+import com.example.socialfoodies_backend.model.*;
 import com.example.socialfoodies_backend.repository.CustomerIceCreamRepository;
 import com.example.socialfoodies_backend.repository.IceCreamRepository;
+import com.example.socialfoodies_backend.repository.PollOptionsRepository;
 import com.example.socialfoodies_backend.repository.PollRepository;
+import com.example.socialfoodies_backend.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +17,23 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/poll")
+@RequestMapping("poll")
 @CrossOrigin
 public class PollController {
 
     @Autowired
     private PollRepository pollRepository;
+
+    @Autowired
+    PollOptionsRepository pollOptionsRepository;
+
+    @Autowired
+    VoteService voteService;
+
+    @GetMapping("/{id}")
+    public List<PollOption> getPollOptionsByPoll(@PathVariable int id) {
+        return pollOptionsRepository.findByPollPollID(id);
+    }
 
     @GetMapping()
     public ResponseEntity<List<Poll>> findAll() {
@@ -29,11 +41,13 @@ public class PollController {
         return ResponseEntity.ok().body(polls);
     }
 
+    @PostMapping("/{pollOptionID}/{email}/{pollID}")
+    public ResponseEntity<Vote> makeAVote(@PathVariable int pollOptionID, @PathVariable String email, @PathVariable int pollID) {
+        Poll poll = pollRepository.findById(pollID);
+        VoteData voteData = new VoteData(pollOptionID, email);
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Poll> findById(@PathVariable int id) {
-        Optional<Poll> poll = pollRepository.findById(id);
-        return poll.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        Vote vote = voteService.castVotesAndUpdatePollOptions(poll, voteData);
+        return ResponseEntity.status(HttpStatus.CREATED).body(vote);
     }
 
 

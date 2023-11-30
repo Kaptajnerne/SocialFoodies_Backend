@@ -33,7 +33,7 @@ public class VoteService {
     @Autowired
     CustomerRepository customerRepository;
 
-    public void castVote(int pollOptionID, String email) {
+    public Vote castVote(int pollOptionID, String email) {
         Vote createdVote = new Vote();
 
         //Get the customer or else create new customer
@@ -52,6 +52,7 @@ public class VoteService {
         createdVote.setSelectedOption(pollOption);
         voteRepository.save(createdVote);
 
+        return createdVote;
     }
 
     public int getTotalVotesByPollOptionID(int pollOptionID) {
@@ -59,10 +60,8 @@ public class VoteService {
     }
 
     @Transactional
-    public void castVotesAndUpdatePollOptions(Poll poll, List<VoteData> votesDataList) {
-        for (VoteData voteData : votesDataList) {
-            castVote(voteData.getPollOptionId(), voteData.getEmail());
-        }
+    public Vote castVotesAndUpdatePollOptions(Poll poll, VoteData voteData) {
+            Vote vote = castVote(voteData.getPollOptionId(), voteData.getEmail());
 
         //Sets and updates the votes
         List<PollOption> updatedOptions = new ArrayList<>();
@@ -72,5 +71,7 @@ public class VoteService {
             updatedOptions.add(option);
         }
         pollOptionsRepository.saveAll(updatedOptions);
+
+        return vote;
     }
 }

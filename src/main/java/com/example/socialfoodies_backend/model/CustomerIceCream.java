@@ -16,6 +16,7 @@ public class CustomerIceCream {
     private String description;
     private boolean vegan;
     private boolean nuts;
+    private String imageUrl;
 
     @ManyToOne
     @JoinColumn(name = "customerID")
