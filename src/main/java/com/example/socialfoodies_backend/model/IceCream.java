@@ -16,5 +16,5 @@ public class IceCream {
     private String description;
     private boolean vegan;
     private boolean nuts;
-    private String movieImageUrl;
+    private String ImageUrl;
 }
