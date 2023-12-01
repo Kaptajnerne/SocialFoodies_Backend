@@ -38,4 +38,18 @@ public class IceCreamController {
         IceCream createdIceCream = iceCreamRepository.save(iceCream);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdIceCream);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<IceCream> update(@PathVariable int id, @RequestBody IceCream updatedIceCream) {
+        Optional<IceCream> existingIceCream = iceCreamRepository.findById(id);
+        if (existingIceCream.isPresent()) {
+            updatedIceCream.setIceCreamID(id); //Make sure it's the right id
+            IceCream savedIceCream = iceCreamRepository.save(updatedIceCream);
+            return ResponseEntity.ok().body(savedIceCream);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
+
