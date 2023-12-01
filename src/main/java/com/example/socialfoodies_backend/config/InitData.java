@@ -26,8 +26,9 @@ public class InitData implements CommandLineRunner {
     private final PollService pollService;
     private final VoteService voteService;
     private final PollOptionService pollOptionService;
+    private final IceCreamSuggestionRepository iceCreamSuggestionRepository;
 
-    public InitData(IceCreamRepository iceCreamRepository, CustomerIceCreamRepository customerIceCreamRepository, CustomerRepository customerRepository, AdminRepository adminRepository, PollService pollService, VoteService voteService, PollOptionService pollOptionService) {
+    public InitData(IceCreamRepository iceCreamRepository, CustomerIceCreamRepository customerIceCreamRepository, CustomerRepository customerRepository, AdminRepository adminRepository, PollService pollService, VoteService voteService, PollOptionService pollOptionService, IceCreamSuggestionRepository iceCreamSuggestionRepository) {
         this.iceCreamRepository = iceCreamRepository;
         this.customerIceCreamRepository = customerIceCreamRepository;
         this.customerRepository = customerRepository;
@@ -35,6 +36,7 @@ public class InitData implements CommandLineRunner {
         this.pollService = pollService;
         this.voteService = voteService;
         this.pollOptionService = pollOptionService;
+        this.iceCreamSuggestionRepository = iceCreamSuggestionRepository;
     }
 
 
@@ -51,6 +53,15 @@ public class InitData implements CommandLineRunner {
         admin.setEmail("Simon.Bang@hotmail.com");
         admin.setPassword("Simon25");
         adminRepository.save(admin);
+
+        //Suggestions
+        IceCreamSuggestion iceCreamSuggestion = new IceCreamSuggestion();
+        iceCreamSuggestion.setName("Kiwi-Mango Magic");
+        iceCreamSuggestion.setDescription("Taste of summer");
+        iceCreamSuggestion.setNuts(true);
+        iceCreamSuggestion.setVegan(true);
+        iceCreamSuggestion.setCustomer(customer);
+        iceCreamSuggestionRepository.save(iceCreamSuggestion);
 
         //Ice cream
         List<IceCream> iceCreams = new ArrayList<>();

@@ -37,9 +37,9 @@ public class VoteService {
         Vote createdVote = new Vote();
 
         //Get the customer or else create new customer
-        Customer customer = customerRepository.findByEmail(email).orElseGet(() -> {
+        Customer customer = customerRepository.findByEmail(email.toLowerCase()).orElseGet(() -> {
             Customer newCustomer = new Customer();
-            newCustomer.setEmail(email);
+            newCustomer.setEmail(email.toLowerCase());
             return customerRepository.save(newCustomer);
         });
         //Get the poll option
