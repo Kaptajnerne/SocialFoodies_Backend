@@ -4,6 +4,7 @@ import com.example.socialfoodies_backend.model.CustomerIceCream;
 import com.example.socialfoodies_backend.model.IceCream;
 import com.example.socialfoodies_backend.repository.CustomerIceCreamRepository;
 import com.example.socialfoodies_backend.repository.IceCreamRepository;
+import com.example.socialfoodies_backend.repository.PollOptionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,9 @@ public class IceCreamController {
 
     @Autowired
     private IceCreamRepository iceCreamRepository;
+
+    @Autowired
+    private PollOptionsRepository pollOptionRepository;
 
     @GetMapping()
     public ResponseEntity<List<IceCream>> findAll() {
@@ -51,5 +55,18 @@ public class IceCreamController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eleteiceCream(@PathVariable int id) {
+        Optional<IceCream> iceCream = iceCreamRepository.findById(id);
+        if (iceCream.isPresent()) {
+            iceCreamRepository.delete(iceCream.get());
+            return ResponseEntity.ok("Ice cream deleted");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
+
+
 

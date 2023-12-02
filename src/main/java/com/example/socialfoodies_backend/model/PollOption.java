@@ -14,8 +14,9 @@ public class PollOption {
     private int pollOptionID;
 
     @ManyToOne
-    @JoinColumn(name = "iceCreamID")
+    @JoinColumn(name = "iceCreamID", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     private IceCream iceCream;
+
 
     @ManyToOne
     @JoinColumn(name = "customerIceCreamID")
