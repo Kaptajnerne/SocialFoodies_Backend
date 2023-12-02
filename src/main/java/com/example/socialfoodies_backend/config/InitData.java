@@ -61,13 +61,37 @@ public class InitData implements CommandLineRunner {
         adminRepository.save(admin);
 
         //Suggestions
-        IceCreamSuggestion iceCreamSuggestion = new IceCreamSuggestion();
-        iceCreamSuggestion.setName("Kiwi-Mango Magic");
-        iceCreamSuggestion.setDescription("Taste of summer");
-        iceCreamSuggestion.setNuts(true);
-        iceCreamSuggestion.setVegan(true);
-        iceCreamSuggestion.setCustomer(customer);
-        iceCreamSuggestionRepository.save(iceCreamSuggestion);
+        IceCreamSuggestion iceCreamSuggestion1 = new IceCreamSuggestion();
+        iceCreamSuggestion1.setName("Kiwi-Mango Magic");
+        iceCreamSuggestion1.setDescription("Taste of summer");
+        iceCreamSuggestion1.setNuts(true);
+        iceCreamSuggestion1.setVegan(true);
+        iceCreamSuggestion1.setCustomer(customer);
+        iceCreamSuggestionRepository.save(iceCreamSuggestion1);
+
+        IceCreamSuggestion iceCreamSuggestion2 = new IceCreamSuggestion();
+        iceCreamSuggestion2.setName("Cacti sorbet");
+        iceCreamSuggestion2.setDescription("Taste of desert");
+        iceCreamSuggestion2.setNuts(false);
+        iceCreamSuggestion2.setVegan(true);
+        iceCreamSuggestion2.setCustomer(customer);
+        iceCreamSuggestionRepository.save(iceCreamSuggestion2);
+
+        IceCreamSuggestion iceCreamSuggestion3 = new IceCreamSuggestion();
+        iceCreamSuggestion3.setName("We Go Gym");
+        iceCreamSuggestion3.setDescription("Taste of sweat");
+        iceCreamSuggestion3.setNuts(false);
+        iceCreamSuggestion3.setVegan(false);
+        iceCreamSuggestion3.setCustomer(customer);
+        iceCreamSuggestionRepository.save(iceCreamSuggestion3);
+
+        IceCreamSuggestion iceCreamSuggestion4 = new IceCreamSuggestion();
+        iceCreamSuggestion4.setName("PB&J");
+        iceCreamSuggestion4.setDescription("Taste of freedom");
+        iceCreamSuggestion4.setNuts(true);
+        iceCreamSuggestion4.setVegan(false);
+        iceCreamSuggestion4.setCustomer(customer);
+        iceCreamSuggestionRepository.save(iceCreamSuggestion4);
 
         //Ice cream
         List<IceCream> iceCreams = new ArrayList<>();
