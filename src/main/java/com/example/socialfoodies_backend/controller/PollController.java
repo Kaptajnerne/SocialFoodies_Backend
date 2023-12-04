@@ -30,6 +30,18 @@ public class PollController {
     @Autowired
     VoteService voteService;
 
+
+    @PostMapping("/{pollOptionID}/{email}/{pollID}")
+    public ResponseEntity<Vote> makeAVote(@PathVariable int pollOptionID, @PathVariable String email, @PathVariable int pollID) {
+        Poll poll = pollRepository.findById(pollID);
+        VoteData voteData = new VoteData(pollOptionID, email);
+
+        Vote vote = voteService.castVotesAndUpdatePollOptions(poll, voteData);
+        return ResponseEntity.status(HttpStatus.CREATED).body(vote);
+    }
+
+
+
     @GetMapping("/{id}")
     public List<PollOption> getPollOptionsByPoll(@PathVariable int id) {
         return pollOptionsRepository.findByPollPollID(id);
@@ -39,15 +51,6 @@ public class PollController {
     public ResponseEntity<List<Poll>> findAll() {
         List<Poll> polls = pollRepository.findAll();
         return ResponseEntity.ok().body(polls);
-    }
-
-    @PostMapping("/{pollOptionID}/{email}/{pollID}")
-    public ResponseEntity<Vote> makeAVote(@PathVariable int pollOptionID, @PathVariable String email, @PathVariable int pollID) {
-        Poll poll = pollRepository.findById(pollID);
-        VoteData voteData = new VoteData(pollOptionID, email);
-
-        Vote vote = voteService.castVotesAndUpdatePollOptions(poll, voteData);
-        return ResponseEntity.status(HttpStatus.CREATED).body(vote);
     }
 
 

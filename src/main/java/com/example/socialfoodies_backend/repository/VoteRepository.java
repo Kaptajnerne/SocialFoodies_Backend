@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VoteRepository extends JpaRepository<Vote, Integer> {
-    int countBySelectedOptionPollOptionID(int pollOptionID);
+    int countBySelectedOption_PollOptionID(int pollOptionID);
 }

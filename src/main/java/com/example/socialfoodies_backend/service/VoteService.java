@@ -33,17 +33,17 @@ public class VoteService {
     @Autowired
     CustomerRepository customerRepository;
 
-    public Vote castVote(int pollOptionID, String email) {
+    public Vote castVote(VoteData voteData) {
         Vote createdVote = new Vote();
 
         //Get the customer or else create new customer
-        Customer customer = customerRepository.findByEmail(email.toLowerCase()).orElseGet(() -> {
+        Customer customer = customerRepository.findByEmail(voteData.getEmail().toLowerCase()).orElseGet(() -> {
             Customer newCustomer = new Customer();
-            newCustomer.setEmail(email.toLowerCase());
+            newCustomer.setEmail(voteData.getEmail().toLowerCase());
             return customerRepository.save(newCustomer);
         });
         //Get the poll option
-        PollOption pollOption = pollOptionsRepository.findById(pollOptionID).orElseThrow(() -> new RuntimeException("Poll Option not found"));
+        PollOption pollOption = pollOptionsRepository.findById(voteData.getPollOptionId()).orElseThrow(() -> new RuntimeException("Poll Option not found"));
         //Get the poll where the vote was taken
         Poll poll = Optional.ofNullable(pollOption.getPoll()).orElseThrow(() -> new RuntimeException("Poll not found for the given Poll Option"));
 
@@ -55,23 +55,25 @@ public class VoteService {
         return createdVote;
     }
 
-    public int getTotalVotesByPollOptionID(int pollOptionID) {
-        return voteRepository.countBySelectedOptionPollOptionID(pollOptionID);
+    public void updatePollOptionTotalVotes(Poll poll) {
+        List<PollOption> pollOptions = pollOptionsRepository.findByPollPollID(poll.getPollID());
+
+        for (PollOption option : pollOptions) {
+            int totalVotes = voteRepository.countBySelectedOption_PollOptionID(option.getPollOptionID());
+            option.setTotalVotes(totalVotes);
+        }
+
+        pollOptionsRepository.saveAll(pollOptions);
     }
+
 
     @Transactional
     public Vote castVotesAndUpdatePollOptions(Poll poll, VoteData voteData) {
-            Vote vote = castVote(voteData.getPollOptionId(), voteData.getEmail());
-
-        //Sets and updates the votes
-        List<PollOption> updatedOptions = new ArrayList<>();
-        for (PollOption option : poll.getPollOptions()) {
-            int totalVotes = getTotalVotesByPollOptionID(option.getPollOptionID());
-            option.setTotalVotes(totalVotes);
-            updatedOptions.add(option);
-        }
-        pollOptionsRepository.saveAll(updatedOptions);
+        Vote vote = castVote(voteData);
+        updatePollOptionTotalVotes(poll);
 
         return vote;
     }
+
+
 }
