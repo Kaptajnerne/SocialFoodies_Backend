@@ -56,7 +56,7 @@ public class IceCreamController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eleteiceCream(@PathVariable int id) {
+    public ResponseEntity<String> deleteIceCream(@PathVariable int id) {
         Optional<IceCream> iceCream = iceCreamRepository.findById(id);
         if (iceCream.isPresent()) {
             iceCreamRepository.delete(iceCream.get());
