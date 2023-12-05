@@ -18,6 +18,11 @@ public class PollOptionController {
     @Autowired
     private PollOptionsRepository pollOptionsRepository;
 
+    @GetMapping("/poll/{pollID}")
+    public List<PollOption> getPollOptionsByPoll(@PathVariable int pollID) {
+        return pollOptionsRepository.findByPollPollID(pollID);
+    }
+
     @GetMapping()
     public ResponseEntity<List<PollOption>> findAll() {
         List<PollOption> pollOptions = pollOptionsRepository.findAll();
@@ -29,6 +34,8 @@ public class PollOptionController {
         Optional<PollOption> pollOptions = pollOptionsRepository.findById(id);
         return pollOptions.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
+
+
 
     @PostMapping()
     public ResponseEntity<PollOption> create(@RequestBody PollOption pollOptions) {

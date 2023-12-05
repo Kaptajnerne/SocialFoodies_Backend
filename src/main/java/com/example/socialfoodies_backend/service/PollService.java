@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -44,6 +45,18 @@ public class PollService {
             pollOptionsRepository.save(option);
         }
         return poll;
+    }
+
+    public int getCurrentRunningPollID() {
+        LocalDate currentDate = LocalDate.now();
+
+        List<Poll> allPolls = pollRepository.findAll();
+        for (Poll poll : allPolls) {
+            if (currentDate.isAfter(poll.getStartDate()) && currentDate.isBefore(poll.getEndDate())) {
+                return poll.getPollID();
+            }
+        }
+        return 0;
     }
 
 }
