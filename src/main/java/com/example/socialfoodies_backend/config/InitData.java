@@ -109,7 +109,7 @@ public class InitData implements CommandLineRunner {
         iceCream2.setDescription("Smager af chokolade");
         iceCream2.setNuts(true);
         iceCream2.setVegan(false);
-        iceCream2.setImageUrl("https://paradis-is.dk/wp-content/uploads/2018/07/chokolade-is-kugle.png");
+        iceCream2.setImageUrl("https://kastbergs.dk/wp-content/uploads/kastbergs_chokolade_optimized_ccexpress.png");
         iceCreamRepository.save(iceCream2);
         iceCreams.add(iceCream2);
 
@@ -127,7 +127,7 @@ public class InitData implements CommandLineRunner {
         iceCream4.setDescription("Smager af jordbær");
         iceCream4.setNuts(true);
         iceCream4.setVegan(false);
-        iceCream4.setImageUrl("https://paradis-is.dk/wp-content/uploads/2018/07/jordbaer-champagne-is-kugle-300x230.png");
+        iceCream4.setImageUrl("https://kastbergs.dk/wp-content/uploads/kastbergs_jordbaer_sorbet_optimized_ccexpress-1.png");
         iceCreamRepository.save(iceCream4);
         iceCreams.add(iceCream4);
 
@@ -136,16 +136,16 @@ public class InitData implements CommandLineRunner {
         iceCream5.setDescription("Smager af ananas");
         iceCream5.setNuts(true);
         iceCream5.setVegan(false);
-        iceCream5.setImageUrl("https://robertsisbar.dk/wp-content/uploads/2017/07/ananas.png");
+        iceCream5.setImageUrl("https://kastbergs.dk/wp-content/uploads/Kastbergs_Ananas.png");
         iceCreamRepository.save(iceCream5);
         iceCreams.add(iceCream5);
 
         IceCream iceCream6 = new IceCream();
-        iceCream6.setName("Banan");
-        iceCream6.setDescription("Smager af banan");
+        iceCream6.setName("Lakrids");
+        iceCream6.setDescription("Smager af lakrids");
         iceCream6.setNuts(true);
         iceCream6.setVegan(false);
-        iceCream6.setImageUrl("https://robertsisbar.dk/wp-content/uploads/2017/07/banan.png");
+        iceCream6.setImageUrl("https://kastbergs.dk/wp-content/uploads/kastbergs_lakrids_optimized_ccexpress.png");
         iceCreamRepository.save(iceCream6);
         iceCreams.add(iceCream6);
 
@@ -164,7 +164,7 @@ public class InitData implements CommandLineRunner {
         customerIceCream2.setDescription("Smager af customer chokolade");
         customerIceCream2.setNuts(true);
         customerIceCream2.setVegan(false);
-        customerIceCream2.setImageUrl("https://paradis-is.dk/wp-content/uploads/2018/07/chokolade-is-kugle.png");
+        customerIceCream2.setImageUrl("https://kastbergs.dk/wp-content/uploads/kastbergs_chokolade_optimized_ccexpress.png");
         customerIceCreamRepository.save(customerIceCream2);
         customerIceCreams.add(customerIceCream2);
 
