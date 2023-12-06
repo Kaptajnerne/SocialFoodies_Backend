@@ -62,7 +62,6 @@ public class VoteService {
             int totalVotes = voteRepository.countBySelectedOption_PollOptionID(option.getPollOptionID());
             option.setTotalVotes(totalVotes);
         }
-
         pollOptionsRepository.saveAll(pollOptions);
     }
 

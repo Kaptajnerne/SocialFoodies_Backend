@@ -30,6 +30,11 @@ public class PollController {
     @Autowired
     VoteService voteService;
 
+    @GetMapping()
+    public ResponseEntity<List<Poll>> findAll() {
+        List<Poll> polls = pollRepository.findAll();
+        return ResponseEntity.ok().body(polls);
+    }
 
     @PostMapping("/{pollOptionID}/{email}/{pollID}")
     public ResponseEntity<Vote> makeAVote(@PathVariable int pollOptionID, @PathVariable String email, @PathVariable int pollID) {
@@ -40,19 +45,10 @@ public class PollController {
         return ResponseEntity.status(HttpStatus.CREATED).body(vote);
     }
 
-
-
     @GetMapping("/{id}")
     public List<PollOption> getPollOptionsByPoll(@PathVariable int id) {
         return pollOptionsRepository.findByPollPollID(id);
     }
-
-    @GetMapping()
-    public ResponseEntity<List<Poll>> findAll() {
-        List<Poll> polls = pollRepository.findAll();
-        return ResponseEntity.ok().body(polls);
-    }
-
 
     @PostMapping()
     public ResponseEntity<Poll> create(@RequestBody Poll poll) {
