@@ -168,7 +168,8 @@ public class InitData implements CommandLineRunner {
 
         //Poll
         int[] pollOptionIds = {1, 3, 5};
-        Poll poll = pollService.createAndSetupPoll(LocalDate.now(), LocalDate.now().plusDays(30), pollOptionIds);
+        LocalDate date = LocalDate.of(2023, 12, 5);
+        Poll poll = pollService.createAndSetupPoll(date, date.plusDays(30), pollOptionIds);
         //Poll poll2 = pollService.createAndSetupPoll(LocalDate.now().plusDays(31), LocalDate.now().plusDays(60), pollOptionIds);
 
         //Vote
