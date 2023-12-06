@@ -1,11 +1,13 @@
 package com.example.socialfoodies_backend.controller;
 
+import com.example.socialfoodies_backend.dto.PollData;
 import com.example.socialfoodies_backend.dto.VoteData;
 import com.example.socialfoodies_backend.model.*;
 import com.example.socialfoodies_backend.repository.CustomerIceCreamRepository;
 import com.example.socialfoodies_backend.repository.IceCreamRepository;
 import com.example.socialfoodies_backend.repository.PollOptionsRepository;
 import com.example.socialfoodies_backend.repository.PollRepository;
+import com.example.socialfoodies_backend.service.PollService;
 import com.example.socialfoodies_backend.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,9 @@ public class PollController {
     @Autowired
     VoteService voteService;
 
+    @Autowired
+    PollService pollService;
+
     @GetMapping()
     public ResponseEntity<List<Poll>> findAll() {
         List<Poll> polls = pollRepository.findAll();
@@ -50,9 +55,13 @@ public class PollController {
         return pollOptionsRepository.findByPollPollID(id);
     }
 
+
     @PostMapping()
-    public ResponseEntity<Poll> create(@RequestBody Poll poll) {
-        Poll createdPoll = pollRepository.save(poll);
+    public ResponseEntity<Poll> create(@RequestBody PollData pollData) {
+        Poll createdPoll = pollService.createAndSetupPoll(pollData);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPoll);
     }
+
+
+
 }

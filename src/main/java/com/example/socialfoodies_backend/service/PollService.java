@@ -1,13 +1,16 @@
 package com.example.socialfoodies_backend.service;
 
+import com.example.socialfoodies_backend.dto.PollData;
 import com.example.socialfoodies_backend.model.Poll;
 import com.example.socialfoodies_backend.model.PollOption;
 import com.example.socialfoodies_backend.repository.PollOptionsRepository;
 import com.example.socialfoodies_backend.repository.PollRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,12 +33,13 @@ public class PollService {
         return selectedPollOptions;
     }
 
-    public Poll createAndSetupPoll(LocalDate startDate, LocalDate endDate, int[] optionIds) {
+    @Transactional
+    public Poll createAndSetupPoll(PollData pollData) {
         Poll poll = new Poll();
-        poll.setStartDate(startDate);
-        poll.setEndDate(endDate);
+        poll.setStartDate(pollData.getStartDate());
+        poll.setEndDate(pollData.getEndDate());
 
-        Set<PollOption> selectedOptions = selectPollOptions(optionIds);
+        Set<PollOption> selectedOptions = selectPollOptions(pollData.getPollOptionsIds());
         poll.setPollOptions(selectedOptions);
         pollRepository.save(poll);
 

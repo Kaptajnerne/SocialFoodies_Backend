@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -21,4 +22,10 @@ public class Poll {
 
     @OneToMany(mappedBy = "poll")
     private Set<PollOption> pollOptions = new HashSet<>();
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pollID, startDate, endDate);
+    }
 }
+

@@ -1,5 +1,6 @@
 package com.example.socialfoodies_backend.config;
 
+import com.example.socialfoodies_backend.dto.PollData;
 import com.example.socialfoodies_backend.dto.VoteData;
 import com.example.socialfoodies_backend.model.*;
 import com.example.socialfoodies_backend.repository.*;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Arrays;
 
 @Component
 public class InitData implements CommandLineRunner {
@@ -166,10 +168,10 @@ public class InitData implements CommandLineRunner {
         //Poll options
         pollOptionService.createPollOptions(iceCreams, customerIceCreams);
 
-        //Poll
-        int[] pollOptionIds = {1, 3, 5};
-        Poll poll = pollService.createAndSetupPoll(LocalDate.now(), LocalDate.now().plusDays(30), pollOptionIds);
-        //Poll poll2 = pollService.createAndSetupPoll(LocalDate.now().plusDays(31), LocalDate.now().plusDays(60), pollOptionIds);
+        int[] pollOptionIds = {1,3,5};
+        //DTO Poll data
+        PollData pollData = new PollData(LocalDate.now(), LocalDate.now().plusDays(30), pollOptionIds);
+        Poll poll = pollService.createAndSetupPoll(pollData);
 
         //Vote
         VoteData voteData1 = new VoteData(1, customer.getEmail());

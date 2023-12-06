@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Data
 @Entity
 public class PollOption {
@@ -26,4 +28,9 @@ public class PollOption {
     private Poll poll;
 
     private int totalVotes;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pollOptionID);
+    }
 }
