@@ -47,15 +47,15 @@ public class PollService {
         return poll;
     }
 
-    public int getCurrentRunningPollID() {
+    public int getCurrentPollID() {
         LocalDate currentDate = LocalDate.now();
-
-        List<Poll> allPolls = pollRepository.findAll();
-        for (Poll poll : allPolls) {
+        List<Poll> polls = pollRepository.findAll();
+        for (Poll poll : polls) {
             if (currentDate.isAfter(poll.getStartDate()) && currentDate.isBefore(poll.getEndDate())) {
                 return poll.getPollID();
             }
         }
+        System.out.println("No active poll");
         return 0;
     }
 

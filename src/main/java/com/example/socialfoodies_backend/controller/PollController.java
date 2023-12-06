@@ -6,6 +6,7 @@ import com.example.socialfoodies_backend.repository.CustomerIceCreamRepository;
 import com.example.socialfoodies_backend.repository.IceCreamRepository;
 import com.example.socialfoodies_backend.repository.PollOptionsRepository;
 import com.example.socialfoodies_backend.repository.PollRepository;
+import com.example.socialfoodies_backend.service.PollService;
 import com.example.socialfoodies_backend.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,14 @@ public class PollController {
     @Autowired
     VoteService voteService;
 
+    @Autowired
+    PollService pollService;
+
+    @GetMapping("/currentPollID")
+    public int getCurrentPollID() {
+        return pollService.getCurrentPollID();
+    }
+
     @GetMapping()
     public ResponseEntity<List<Poll>> findAll() {
         List<Poll> polls = pollRepository.findAll();
@@ -46,8 +55,8 @@ public class PollController {
     }
 
     @GetMapping("/{id}")
-    public List<PollOption> getPollOptionsByPoll(@PathVariable int id) {
-        return pollOptionsRepository.findByPollPollID(id);
+    public Poll getPollByPollID(@PathVariable int id) {
+        return pollRepository.findById(id);
     }
 
     @PostMapping()
