@@ -56,4 +56,15 @@ public class CustomerIceCreamController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCustomerIceCream(@PathVariable int id) {
+        Optional<CustomerIceCream> customerIceCream = customerIceCreamRepository.findById(id);
+        if (customerIceCream.isPresent()) {
+            customerIceCreamRepository.delete(customerIceCream.get());
+            return ResponseEntity.ok("Customer ice cream deleted");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
