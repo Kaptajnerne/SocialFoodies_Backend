@@ -149,19 +149,33 @@ public class InitData implements CommandLineRunner {
         iceCreamRepository.save(iceCream6);
         iceCreams.add(iceCream6);
 
-        //Customer ice creams
         List<CustomerIceCream> customerIceCreams = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            CustomerIceCream cIceCream = new CustomerIceCream();
-            cIceCream.setName("Customer Ice Cream " + i);
-            cIceCream.setDescription("Customer Description " + i);
-            cIceCream.setNuts(false);
-            cIceCream.setVegan(true);
-            cIceCream.setCustomer(customer);
-            cIceCream.setImageUrl("https://assets-global.website-files.com/610ad3ad234b4037b59c37dd/6168de16495ee0dd4d5dec0c_DFVANILLA_SCOOPSIMAGE_1200x800%20(1).png");
-            customerIceCreamRepository.save(cIceCream);
-            customerIceCreams.add(cIceCream);
-        }
+        CustomerIceCream customerIceCream1 = new CustomerIceCream();
+        customerIceCream1.setName("Customer Vanillje");
+        customerIceCream1.setDescription("Smager af customer vanilljie");
+        customerIceCream1.setNuts(true);
+        customerIceCream1.setVegan(false);
+        customerIceCream1.setImageUrl("https://kastbergs.dk/wp-content/uploads/ny_vanilje_ccexpress.png");
+        customerIceCreamRepository.save(customerIceCream1);
+        customerIceCreams.add(customerIceCream1);
+
+        CustomerIceCream customerIceCream2 = new CustomerIceCream();
+        customerIceCream2.setName("Customer Chokolade");
+        customerIceCream2.setDescription("Smager af customer chokolade");
+        customerIceCream2.setNuts(true);
+        customerIceCream2.setVegan(false);
+        customerIceCream2.setImageUrl("https://paradis-is.dk/wp-content/uploads/2018/07/chokolade-is-kugle.png");
+        customerIceCreamRepository.save(customerIceCream2);
+        customerIceCreams.add(customerIceCream2);
+
+        CustomerIceCream customerIceCream3 = new CustomerIceCream();
+        customerIceCream3.setName("Customer mango");
+        customerIceCream3.setDescription("Smager af customer mango");
+        customerIceCream3.setNuts(true);
+        customerIceCream3.setVegan(false);
+        customerIceCream3.setImageUrl("https://kastbergs.dk/wp-content/uploads/kastbergs_mango_sorbet_optimized-1_ccexpress-1.png");
+        customerIceCreamRepository.save(customerIceCream3);
+        customerIceCreams.add(customerIceCream3);
 
         //Poll options
         pollOptionService.createPollOptions(iceCreams, customerIceCreams);

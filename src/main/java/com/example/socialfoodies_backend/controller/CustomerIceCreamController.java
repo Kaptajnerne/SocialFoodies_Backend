@@ -2,6 +2,7 @@ package com.example.socialfoodies_backend.controller;
 
 import com.example.socialfoodies_backend.model.Customer;
 import com.example.socialfoodies_backend.model.CustomerIceCream;
+import com.example.socialfoodies_backend.model.IceCream;
 import com.example.socialfoodies_backend.repository.CustomerIceCreamRepository;
 import com.example.socialfoodies_backend.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,4 +43,17 @@ public class CustomerIceCreamController {
         CustomerIceCream createdCustomerIceCream = customerIceCreamRepository.save(customerIceCream);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomerIceCream);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CustomerIceCream> update(@PathVariable int id, @RequestBody CustomerIceCream updatedCustomerIceCream) {
+        Optional<CustomerIceCream> existingCustomerIceCream = customerIceCreamRepository.findById(id);
+        if (existingCustomerIceCream.isPresent()) {
+            updatedCustomerIceCream.setCustomerIceCreamID(id); //Make sure it's the right id
+            CustomerIceCream savedCustomerIceCream = customerIceCreamRepository.save(updatedCustomerIceCream);
+            return ResponseEntity.ok().body(savedCustomerIceCream);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
