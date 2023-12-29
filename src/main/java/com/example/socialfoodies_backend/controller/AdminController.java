@@ -23,6 +23,20 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody Map<String, String> loginData) {
+        String email = loginData.get("email");
+        String password = loginData.get("password");
+
+        Optional<Admin> admin = adminService.login(email, password);
+
+        if (admin.isPresent()) {
+            return ResponseEntity.ok("Login successful");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed");
+        }
+    }
+
     @GetMapping()
     public ResponseEntity<List<Admin>> findAll() {
         List<Admin> admins = adminRepository.findAll();
@@ -41,18 +55,6 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAdmin);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Map<String, String> loginData) {
-        String email = loginData.get("email");
-        String password = loginData.get("password");
 
-        Optional<Admin> admin = adminService.login(email, password);
-
-        if (admin.isPresent()) {
-            return ResponseEntity.ok("Login successful");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed");
-        }
-    }
 
 }
